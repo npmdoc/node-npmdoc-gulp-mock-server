@@ -1,0 +1,375 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/sanyueyu/gulp-mock-server#readme"
+
+    >gulp-mock-server (v1.1.4)</a>
+</h1>
+<h4>to be the most simple gulp mock tool in the world</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-mock-server">module gulp-mock-server</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-mock-server.gulp-mock-server">
+            function <span class="apidocSignatureSpan"></span>gulp-mock-server
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-mock-server.toString">
+            function <span class="apidocSignatureSpan">gulp-mock-server.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">gulp-mock-server.</span>command</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-mock-server.command">module gulp-mock-server.command</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-mock-server.command.exec">
+            function <span class="apidocSignatureSpan">gulp-mock-server.command.</span>exec
+            <span class="apidocSignatureSpan">(argv)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-mock-server.toString">module gulp-mock-server.toString</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-mock-server.toString.toString">
+            function <span class="apidocSignatureSpan">gulp-mock-server.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gulp-mock-server" id="apidoc.module.gulp-mock-server">module gulp-mock-server</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-mock-server.gulp-mock-server" id="apidoc.element.gulp-mock-server.gulp-mock-server">
+        function <span class="apidocSignatureSpan"></span>gulp-mock-server
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">gulp-mock-server = function (options) {
+
+  var defaults = {
+
+<span class="apidocCodeCommentSpan">    /**
+     *
+     * BASIC DEFAULTS
+     *
+     **/
+</span>
+    host: &#x27;localhost&#x27;,
+    port: 8000,
+    path: &#x27;/&#x27;,
+    fallback: false,
+    https: false,
+    open: false,
+    mockDir: &#x27;./data&#x27;,
+    allowCrossOrigin: false,
+    //middleware: [bodyParser.json(), query(), mockMiddle(mockDir)],
+    middleware: [bodyParser.urlencoded({ extended: false }), bodyParser.json(), query()],
+    //middleware: [multipart(), query()],
+
+    /**
+     *
+     * MIDDLEWARE DEFAULTS
+     *
+     * NOTE:
+     *  All middleware should defaults should have the &#x27;enable&#x27;
+     *  property if you want to support shorthand syntax like:
+     *
+     *    webserver({
+     *      livereload: true
+     *    });
+     *
+     */
+
+    // Middleware: Livereload
+    livereload: {
+      enable: false,
+      port: 35729,
+      filter: function (filename) {
+        if (filename.match(/node_modules/)) {
+          return false;
+        } else { return true; }
+      }
+    },
+
+    // Middleware: Directory listing
+    // For possible options, see:
+    //  https://github.com/expressjs/serve-index
+    directoryListing: {
+      enable: true,
+      path: &#x27;./&#x27;,
+      options: undefined
+    },
+
+    // Middleware: Proxy
+    // For possible options, see:
+    //  https://github.com/andrewrk/connect-proxy
+    proxies: []
+
+  };
+
+  // Deep extend user provided options over the all of the defaults
+  // Allow shorthand syntax, using the enable property as a flag
+  var config = enableMiddlewareShorthand(defaults, options, [
+    &#x27;directoryListing&#x27;,
+    &#x27;livereload&#x27;
+  ]);
+
+  if (typeof config.open === &#x27;string&#x27; &#x26;&#x26; config.open.length &#x3e; 0 &#x26;&#x26; config.open.indexOf(&#x27;http&#x27;) !== 0) {
+    // ensure leading slash if this is NOT a complete url form
+    config.open = (config.open.indexOf(&#x27;/&#x27;) !== 0 ? &#x27;/&#x27; : &#x27;&#x27;) + config.open;
+  }
+
+  var app = connect();
+
+  var openInBrowser = function() {
+    if (config.open === false) return;
+    if (typeof config.open === &#x27;string&#x27; &#x26;&#x26; config.open.indexOf(&#x27;http&#x27;) === 0) {
+      // if this is a complete url form
+      open(config.open);
+      return;
+    }
+    open(&#x27;http&#x27; + (config.https ? &#x27;s&#x27; : &#x27;&#x27;) + &#x27;://&#x27; + config.host + &#x27;:&#x27; + config.port + (typeof config.open === &#x27;string&#x27; ? config
+.open : &#x27;&#x27;));
+  };
+
+  var lrServer;
+
+  if (config.livereload.enable) {
+
+    app.use(connectLivereload({
+      port: config.livereload.port
+    }));
+
+    if (config.https) {
+      if (config.https.pfx) {
+        lrServer = miniLr({
+          pfx: fs.readFileSync(config.https.pfx),
+          passphrase: config.https.passphrase
+        });
+      }
+      else {
+        lrServer = miniLr({
+          key: fs.readFileSync(config.https.key || __dirname + &#x27;/../ssl/dev-key.pem&#x27;),
+          cert: fs.readFileSync(config.https.cert || __dirname + &#x27;/../ssl/dev-cert.pem&#x27;)
+        });
+      }
+    } else {
+      lrServer = miniLr();
+    }
+
+    lrServer.listen(config.livereload.port, config.host);
+
+  }
+
+  // middlewares
+  if (typeof config.middleware === &#x27;function&#x27;) {
+    app.use(config.middleware);
+  } else if (isarray(config.middleware)) {
+    config.middleware
+      .filter(function(m) { return typeof m === &#x27;function&#x27;; })
+      .forEach(function(m) {
+        app.use(m);
+      });
+  }
+
+  // mock middleware
+  if (config.allowCrossOrigin) {
+    gutil.log(&#x22;Cross origin resource sharing is enabled (CORS headers are sent)&#x22;);
+  }
+  app.use(mockMiddle(config.mockDir, config.allowCrossOrigin));
+
+  // Proxy requests
+  for (var i = 0, len = config.proxies.length; i &#x3c; len; i++) {
+    var proxyoptions = url.parse(config.proxies[i].target);
+    if (config.proxies[i].hasOwnProperty(&#x27;options&#x27;)) {
+      extend(proxyoptions, config.proxies[i].options);
+    }
+    app.use(config.proxies[i].source, proxy(proxyoptions));
+  }
+
+  if (config.directoryListing.enable) {
+    app.use(config.path, serveIndex(path.resolve(config.directoryListing.path), config.directoryListing.options));
+  }
+
+
+  var files = [];
+
+  // Create server
+  var stream = through.obj(function(file, enc, callback) {
+
+    app.use(config.path, serveStatic(file.path));
+
+    if (config.livereload.enable) {
+      var watchOptions = ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-mock-server.toString" id="apidoc.element.gulp-mock-server.toString">
+        function <span class="apidocSignatureSpan">gulp-mock-server.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return text;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gulp-mock-server.command" id="apidoc.module.gulp-mock-server.command">module gulp-mock-server.command</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-mock-server.command.exec" id="apidoc.element.gulp-mock-server.command.exec">
+        function <span class="apidocSignatureSpan">gulp-mock-server.command.</span>exec
+        <span class="apidocSignatureSpan">(argv)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">exec = function (argv) {
+  if (argv.fetch || argv.f) {
+    var mockDir = argv.server || argv.e;
+    mockDir = typeof(mockDir) === &#x27;string&#x27; ? mockDir : &#x27;./data&#x27;;
+
+    var dir = path.join(CWD, mockDir);
+    var url = argv.f;
+    if (!url) return;
+
+    var arr = url.split(&#x27;/&#x27;);
+    // 去除 &#x22;http:&#x22;, &#x22;&#x22;, &#x22;hostname&#x22;,
+    var name = arr.pop(dir, arr.slice(3).join(&#x27;/&#x27;)).split(&#x27;?&#x27;)[0];
+    fse.ensureDirSync(path.join(dir, arr.slice(3).join(&#x27;/&#x27;)));
+    request(url).pipe(fs.createWriteStream(path.join(dir, arr.slice(3).join(&#x27;/&#x27;), name + &#x27;.json&#x27;)));
+    console.log(&#x27;success! file path:&#x27; + path.join(dir, arr.slice(3).join(&#x27;/&#x27;), name + &#x27;.json&#x27;));
+  }
+  if (argv.server || argv.e) {
+    var mockDir = argv.server || argv.e;
+    mockDir = typeof(mockDir) === &#x27;string&#x27; ? mockDir : &#x27;./data&#x27;;
+    var port = parseInt(argv.port || argv.p || 9999, 10);
+    server({
+      mockDir: mockDir,
+      port: port
+    });
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gulp-mock-server.toString" id="apidoc.module.gulp-mock-server.toString">module gulp-mock-server.toString</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-mock-server.toString.toString" id="apidoc.element.gulp-mock-server.toString.toString">
+        function <span class="apidocSignatureSpan">gulp-mock-server.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
