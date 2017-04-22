@@ -1,4 +1,7 @@
-# api documentation for  [gulp-mock-server (v1.1.4)](https://github.com/sanyueyu/gulp-mock-server#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-mock-server.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-mock-server) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-mock-server.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-mock-server)
+# npmdoc-gulp-mock-server
+
+#### api documentation for  [gulp-mock-server (v1.1.4)](https://github.com/sanyueyu/gulp-mock-server#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-mock-server.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-mock-server) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-mock-server.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-mock-server)
+
 #### to be the most simple gulp mock tool in the world
 
 [![NPM](https://nodei.co/npm/gulp-mock-server.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/gulp-mock-server)
