@@ -65,15 +65,6 @@
 
         <li>
 
-            <a class="apidocElementLiA" href="#apidoc.element.gulp-mock-server.toString">
-            function <span class="apidocSignatureSpan">gulp-mock-server.</span>toString
-            <span class="apidocSignatureSpan">()</span>
-            </a>
-
-        </li>
-
-        <li>
-
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">gulp-mock-server.</span>command</span>
 
         </li>
@@ -87,19 +78,6 @@
             <a class="apidocElementLiA" href="#apidoc.element.gulp-mock-server.command.exec">
             function <span class="apidocSignatureSpan">gulp-mock-server.command.</span>exec
             <span class="apidocSignatureSpan">(argv)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-mock-server.toString">module gulp-mock-server.toString</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.gulp-mock-server.toString.toString">
-            function <span class="apidocSignatureSpan">gulp-mock-server.</span>toString
-            <span class="apidocSignatureSpan">()</span>
             </a>
 
         </li>
@@ -281,21 +259,6 @@
 
 
 
-    <h2>
-        <a href="#apidoc.element.gulp-mock-server.toString" id="apidoc.element.gulp-mock-server.toString">
-        function <span class="apidocSignatureSpan">gulp-mock-server.</span>toString
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">toString = function () {
-    return text;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-
 
 </div>
 
@@ -336,25 +299,16 @@
     });
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
+    <li>example usage<pre class="apidocCodePre">...
+  .usage('[options]')
+  .description('mockæŽ¥å£å·¥å…·'.blue)
+  .option('-e, --server [mockRoot]', 'start mock server')
+  .option('-p, --port [port]', 'server port config')
+  .option('-f, --fetch [url]', 'download remote url to local json file')
+  .parse(process.argv);
 
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.gulp-mock-server.toString" id="apidoc.module.gulp-mock-server.toString">module gulp-mock-server.toString</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.gulp-mock-server.toString.toString" id="apidoc.element.gulp-mock-server.toString.toString">
-        function <span class="apidocSignatureSpan">gulp-mock-server.</span>toString
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+require('../src/command.js').<span class="apidocCodeKeywordSpan">exec</span>(argv);
+...</pre></li>
     </ul>
 
 
